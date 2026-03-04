@@ -3,8 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { signIn } from "next-auth/react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 export default function LoginPage() {
+  const router=useRouter()
+  // const path=usePathname()
+  const searchParams=useSearchParams()
+  const path=searchParams.get("callback")
+  console.log(path);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -17,11 +23,23 @@ export default function LoginPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     console.log("Login Data:", form);
 
-    // 👉 এখানে API call দিবে
+    //  API call 
+    const result=await signIn("credentials", {
+      email: form.email,
+      password: form.password,
+      redirect: false,
+      
+    })
+    console.log({result});
+    
+    if(result?.ok){
+      alert("Login successful!");
+      router.push(path || '/')
+    }
   };
 
   // ✅ Google login handler

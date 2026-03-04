@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import NavLink from "../buttons/NavLink";
 import { BsCartPlus } from "react-icons/bs";
 import Link from "next/link";
+import AuthBtn from "../buttons/AuthBtn";
 
 const Navbar = () => {
   const linkClass =
@@ -75,7 +76,7 @@ const Navbar = () => {
 
       <div className="navbar-end gap-2">
         <BsCartPlus className="btn btn-primary py-2"/>
-        <Link href={'/login'} className="btn btn-primary btn-outline">Login</Link>
+       <AuthBtn/>
         
       </div>
     </div>
