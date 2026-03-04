@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { postUser } from '@/actions/server/auth';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
+  const router=useRouter()
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -18,11 +21,17 @@ export default function RegisterPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Register Data:', form);
 
-    // 👉 এখানে API call দিবে
+    //  API call 
+    const result= await postUser(form) 
+    console.log(result);
+    if(result?.insertedId){
+      alert("Registration successful! Please login.");
+      router.push('/login')
+    }
   };
 
   const handleGoogleLogin = () => {

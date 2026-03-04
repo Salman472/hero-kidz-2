@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import { MdOutlineLocalShipping } from 'react-icons/md';
+import CartBtn from '../buttons/CartBtn';
 
 const ProductCardDetails = ({ product }) => {
   const {
@@ -70,10 +71,7 @@ const ProductCardDetails = ({ product }) => {
 
         {/* buttons */}
         <div className="flex flex-wrap gap-3 pt-2">
-          <button className="btn btn-primary gap-2">
-            <FaShoppingCart />
-            Add to Cart
-          </button>
+          <CartBtn product={product}/>
 
           <button className="btn btn-primary btn-outline gap-2">
             <MdOutlineLocalShipping />
