@@ -1,8 +1,10 @@
 import { loginUser } from "@/actions/server/auth";
 import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
+    // credentials provider
     CredentialsProvider({
     // The name to display on the sign in form (e.g. 'Sign in with...')
     name: 'Credentials',
@@ -21,7 +23,11 @@ export const authOptions = {
       
       return user
     }
+  }),
+    // google provider
+    GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
   })
-    // ...add more providers here
   ],
 }

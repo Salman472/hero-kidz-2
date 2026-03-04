@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { postUser } from '@/actions/server/auth';
 import { useRouter } from 'next/navigation';
+import GoogleLogin from '../buttons/GoogleLogin';
 
 export default function RegisterPage() {
   const router=useRouter()
@@ -34,10 +35,7 @@ export default function RegisterPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    console.log('Google login clicked');
-    // 👉 এখানে Google auth logic দিবে (NextAuth/Firebase)
-  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center  p-4">
@@ -119,18 +117,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Google Login */}
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 border py-3 rounded-lg hover:bg-primary transition"
-        >
-          <Image
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="google"
-            width={20}
-            height={20}
-          />
-          Continue with Google
-        </button>
+       <GoogleLogin/>
 
         {/* Footer */}
         <p className="text-sm text-center text-gray-500 mt-6">

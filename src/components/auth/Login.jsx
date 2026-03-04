@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import GoogleLogin from "../buttons/GoogleLogin";
 export default function LoginPage() {
-  const router=useRouter()
+  const router = useRouter();
   // const path=usePathname()
-  const searchParams=useSearchParams()
-  const path=searchParams.get("callback")
+  const searchParams = useSearchParams();
+  const path = searchParams.get("callback");
   console.log(path);
   const [form, setForm] = useState({
     email: "",
@@ -23,34 +24,22 @@ export default function LoginPage() {
     });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login Data:", form);
 
-    //  API call 
-    const result=await signIn("credentials", {
+    //  API call
+    const result = await signIn("credentials", {
       email: form.email,
       password: form.password,
       redirect: false,
-      
-    })
-    console.log({result});
-    
-    if(result?.ok){
+    });
+    console.log({ result });
+
+    if (result?.ok) {
       alert("Login successful!");
-      router.push(path || '/')
+      router.push(path || "/");
     }
-  };
-
-  // ✅ Google login handler
-  const handleGoogleLogin = () => {
-    console.log("Google login clicked");
-
-    // 👉 NextAuth হলে:
-    // signIn("google")
-
-    // 👉 Firebase হলে:
-    // Google auth logic এখানে দিবে
   };
 
   return (
@@ -58,9 +47,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md rounded-2xl shadow-2xl p-8">
         {/* Title */}
         <h1 className="text-3xl font-bold text-center mb-2">Hero Kidz</h1>
-        <p className="text-gray-500 text-center mb-6">
-          Login to your account
-        </p>
+        <p className="text-gray-500 text-center mb-6">Login to your account</p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -80,9 +67,7 @@ export default function LoginPage() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Password
-            </label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
               name="password"
@@ -111,18 +96,7 @@ export default function LoginPage() {
         </div>
 
         {/* ✅ Google Login Button */}
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 border py-3 rounded-lg hover:bg-primary transition"
-        >
-          <Image
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="google"
-            width={20}
-            height={20}
-          />
-          Continue with Google
-        </button>
+        <GoogleLogin />
 
         {/* Extra */}
         <p className="text-sm text-center text-gray-500 mt-6">
