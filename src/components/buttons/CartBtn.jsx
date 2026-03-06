@@ -1,10 +1,13 @@
 'use client'
+import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const CartBtn = ({product}) => {
-    console.log(product);
-    const isLogin=false;
+    // console.log(product);
+    const session=useSession()
+    console.log(session);
+    const isLogin=session?.status==="authenticated"
     const router=useRouter()
     const path=usePathname()
     const handleAddToCart=()=>{

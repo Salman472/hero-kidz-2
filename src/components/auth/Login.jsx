@@ -40,6 +40,9 @@ export default function LoginPage() {
       alert("Login successful!");
       router.push(path || "/");
     }
+    else{
+      alert("Login failed. Please check your credentials and try again.")
+    }
   };
 
   return (

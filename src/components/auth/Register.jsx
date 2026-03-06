@@ -1,18 +1,21 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { postUser } from '@/actions/server/auth';
-import { useRouter } from 'next/navigation';
-import GoogleLogin from '../buttons/GoogleLogin';
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { postUser } from "@/actions/server/auth";
+import { useRouter } from "next/navigation";
+import GoogleLogin from "../buttons/GoogleLogin";
+
 
 export default function RegisterPage() {
-  const router=useRouter()
+  // const params = useSearchParams();
+  // const callBackUrl = params.get("callback") || "/";
+  const router = useRouter();
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -22,41 +25,38 @@ export default function RegisterPage() {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Register Data:', form);
+    console.log("Register Data:", form);
 
-    //  API call 
-    const result= await postUser(form) 
+    //  API call
+    const result = await postUser(form);
     console.log(result);
-    if(result?.insertedId){
-      alert("Registration successful! Please login.");
+    if (result?.insertedId) {
       router.push('/login')
+      // const result = await signIn("credentials", {
+      //   email: form.email,
+      //   password: form.password,
+      //   callbackUrl: callBackUrl,
+      // });
+      // router.push(result.callBackUrl || "/");
+
+      alert("Registration successful! Please login to continue.");
     }
   };
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-md  rounded-2xl shadow-2xl p-8">
-
         {/* Title */}
-        <h1 className="text-3xl font-bold text-center mb-2">
-          Hero Kidz
-        </h1>
-        <p className="text-gray-500 text-center mb-6">
-          Create your account
-        </p>
+        <h1 className="text-3xl font-bold text-center mb-2">Hero Kidz</h1>
+        <p className="text-gray-500 text-center mb-6">Create your account</p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Name
-            </label>
+            <label className="block text-sm font-medium mb-1">Name</label>
             <input
               type="text"
               name="name"
@@ -70,9 +70,7 @@ export default function RegisterPage() {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Email
-            </label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
               name="email"
@@ -86,9 +84,7 @@ export default function RegisterPage() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Password
-            </label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
               name="password"
@@ -117,11 +113,11 @@ export default function RegisterPage() {
         </div>
 
         {/* Google Login */}
-       <GoogleLogin/>
+        <GoogleLogin />
 
         {/* Footer */}
         <p className="text-sm text-center text-gray-500 mt-6">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link href="/login" className="text-primary cursor-pointer">
             Login
           </Link>
